@@ -1,0 +1,33 @@
+-- Практическое задание по теме «Операторы, фильтрация, сортировка и ограничение»
+
+-- 1. Создал таблицу
+create table users(
+	id serial primary key,
+	created_at varchar(50),
+	updated_at varchar(50)
+);
+
+-- Обновил таблицу
+update users 
+	set created_at = now(),
+	updated_at = now(); 
+
+-- 2. Смена типа данных
+alter table users modify created_at varchar(100) not null;
+alter table users modify updated_at varchar(100) not null;
+
+alter table users modify created_at DATETIME DEFAULT CURRENT_TIMESTAMP;
+alter table users modify updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
+-- 3. Не успел разобраться..
+
+-- Практическое задание теме «Агрегация данных»
+
+-- 1. Вывод среднего возраста
+select avg(TIMESTAMPDIFF(year, birthday_at, now())) as average_age from users;
+
+-- 2. Количество дней рождения, которые приходятся на каждый из дней недели
+select 
+	count(*) AS total,  
+	dayname(birthday_at) as daynames from users
+	group by daynames;

@@ -1,0 +1,51 @@
+create table users(
+	`id` serial primary key, 
+	`name` varchar(45),
+	`city` varchar(45)
+);
+
+INSERT INTO users (`id`,`name`,`city`) VALUES 
+('1','Сергей','Казань'),
+('2','Игорь','Москва'),
+('3','Сергей','Иркутск'),
+('4','Дмитрий','Томск'),
+('5','Дмитрий','Омск');
+
+
+create table orders(
+	`number` serial primary key, 
+	`id_user` varchar(45),
+	`zakaz` varchar(45)
+);
+
+INSERT INTO orders (`number`,`id_user`,`zakaz`) VALUES 
+('1','1','книга'),
+('2','2','тетрадь'),
+('3','1','ручка'),
+('4','4','пенал'),
+('5','1','ластик');
+
+-- Решение задачи 1
+
+select 
+	p.id, p.name, c.id_user
+from 
+	orders AS c
+join 
+	users AS p
+on 
+	c.id_user = p.id
+group by
+	id_user 
+having count(id_user) >= 1;
+
+-- Решение задачи 2 (не тестировал)
+
+select 
+	p.name, c.name
+from 
+	catalogs AS c
+left join 
+	product AS p
+on 
+	c.id = p.catalog_id;
